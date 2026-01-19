@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>EBK All Day</title></head>
+<body>
+  <textarea id="p" placeholder="Ask..."></textarea>
+  <button onclick="ask()">Ask AI</button>
+  <div id="o"></div>
+  <script>
+    async function ask() {
+      const r = await fetch('/api/ai', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({prompt: document.getElementById('p').value})
+      });
+      const d = await r.json();
+      document.getElementById('o').innerText = d.reply || d.error;
+    }
+  </script>
+</body></html>
